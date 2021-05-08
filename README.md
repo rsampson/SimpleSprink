@@ -1,0 +1,2 @@
+# SimpleSprink
+Simplified irrigation controller

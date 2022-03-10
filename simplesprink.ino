@@ -14,6 +14,7 @@
 //  8 Relay board data at:
 //  http://wiki.sunfounder.cc/index.php?title=8_Channel_5V_Relay_Module&utm_source=thenewstack&utm_medium=website
 
+#define RELAY8
 #ifdef  RELAY8     // if using a board with 8 relays
 int relay[8] = {16,5,4,0,2,14,12,13};  // this is the output gpio pin ordering
 #else              // else using board with 4 relays
@@ -23,14 +24,14 @@ int relay[4] = {16,14,12,13};
 
 
 // Set watering schedule here
-#define RUN_HOUR 20     // hour to start running
+#define RUN_HOUR 7     // hour to start running
 #define RUN_MINUTE 10    // minute to start running 
-#define DURATION1 1     // how long to run staton 1, etc
-#define DURATION2 1
-#define DURATION3 1
-#define DURATION4 1
-#define DURATION5 1    
-#define DURATION6 1
+#define DURATION1 5     // how long to run staton 1, etc
+#define DURATION2 5
+#define DURATION3 5
+#define DURATION4 7
+#define DURATION5 7    
+#define DURATION6 7
 #define DURATION7 1
 #define DURATION8 1
 
@@ -68,16 +69,17 @@ void setup_wifi() {
   Serial.println(WiFi.localIP());
 }
 
-// turn relay n on, all others off
+// !!!!!!!!!!!!!!!!! It appears that the "on" state for the 8 relay board may be different from the 4 realy board , please check !!!!!!!!!!!!!
+// turn relay rl on, all others off
 void relayOn(int rl) {
   int i;
   for(i =0; i < sizeof relay / sizeof relay[0]; i++) {
-    digitalWrite(relay[i], i == rl ? HIGH: LOW);
+    digitalWrite(relay[i], i == rl ? LOW: HIGH);
   }
 }
 
 void allOff() {
-  relayOn(100);   // nonexitant relay # turns everythin off
+  relayOn(100);   // nonexistant relay # turns everything off
 }
 
 void relayConfig( ) {
